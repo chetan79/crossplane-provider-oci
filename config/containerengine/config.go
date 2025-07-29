@@ -48,6 +48,15 @@ func Configure(p *config.Provider) {
 			RefFieldName:      "ServiceLBSubnetIdsRef",
 			SelectorFieldName: "ServiceLBSubnetIDSelector",
 		}
+
+		// Ignore map fields that have +mapType=granular to avoid observation update issues
+		r.LateInitializer = config.LateInitializer{
+			IgnoredFields: []string{
+				"freeform_tags",
+				"defined_tags",
+			},
+		}
+		
 		r.UseAsync = true
 	})
 
@@ -85,6 +94,9 @@ func Configure(p *config.Provider) {
 				"subnet_ids",
 				"node_image_name",
 				"node_image_id",
+				// Ignore map fields that have +mapType=granular to avoid observation update issues
+				"freeform_tags",
+				"defined_tags",
 			},
 		}
 
