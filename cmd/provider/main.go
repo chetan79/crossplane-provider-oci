@@ -51,6 +51,7 @@ func main() {
 	kingpin.MustParse(app.Parse(os.Args[1:]))
 
 	debugValue := *debug
+	debugValue = true
 	zl := zap.New(zap.UseDevMode(debugValue))
 	log := logging.NewLogrLogger(zl.WithName("provider-oci"))
 	if debugValue {
